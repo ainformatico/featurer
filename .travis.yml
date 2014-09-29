@@ -7,3 +7,4 @@ rvm:
   - 2.1.2
 services:
   - redis-server
+bundler_args: --without debug
