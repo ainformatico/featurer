@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/ainformatico/featurer.svg)](https://travis-ci.org/ainformatico/featurer)
+
 # Featurer
 Easy _feature flag_ for your project.
 
