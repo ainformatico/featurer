@@ -52,7 +52,7 @@ Featurer.init
 For different users:
 
 ```ruby
-Featurer.register(:feature, [first_user_id, sercond_users_id, third_user_id])
+Featurer.register(:feature, [first_user_id, second_user_id, third_user_id])
 ```
 
 or single:
