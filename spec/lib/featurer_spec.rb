@@ -50,6 +50,29 @@ describe Featurer do
         expect(Featurer.on?(:feature, user_id)).to_not be
         expect(Featurer.on?(:feature, user_id + 1)).to_not be
       end
+
+      it 'should add a user to a non-existing feature' do
+        Featurer.add :feature, user_id
+
+        expect(Featurer.on?(:feature, user_id)).to be
+      end
+
+      it 'should add a single user to a feature' do
+        Featurer.register :feature, [user_id]
+        Featurer.add :feature, user_id + 1
+
+        expect(Featurer.on?(:feature, user_id)).to be
+        expect(Featurer.on?(:feature, user_id + 1)).to be
+      end
+
+      it 'should add multiple users to a feature' do
+        Featurer.register :feature, [user_id]
+        Featurer.add :feature, [user_id + 1, user_id + 2]
+
+        expect(Featurer.on?(:feature, user_id)).to be
+        expect(Featurer.on?(:feature, user_id + 1)).to be
+        expect(Featurer.on?(:feature, user_id + 2)).to be
+      end
     end
 
     describe 'global' do

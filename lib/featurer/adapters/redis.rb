@@ -14,6 +14,10 @@ module Featurer
       delete_key(feature)
     end
 
+    def add(feature, value)
+      save_set(feature, value)
+    end
+
     def on?(feature, value = true)
       fetch_from_set(feature, value)
     end

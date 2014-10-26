@@ -67,6 +67,13 @@ Then request the enabled feature:
 Featurer.on?(:feature, user_id)
 ```
 
+To add more users later on:
+
+```ruby
+Featurer.add(:feature, first_user_id)
+Featurer.add(:feature, [second_user_id, third_user_id])
+```
+
 In order to remove a user from a feature:
 
 ```ruby
@@ -114,6 +121,10 @@ class TestAdapter < Featurer::Adapter
   end
 
   def on?(name, value = true)
+    # your logic
+  end
+
+  def add(name, value)
     # your logic
   end
 
