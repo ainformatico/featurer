@@ -117,6 +117,10 @@ class TestAdapter < Featurer::Adapter
     # your logic
   end
 
+  def off(name)
+    # your logic
+  end
+
   def delete(name)
     # your logic
 end
