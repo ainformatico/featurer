@@ -78,6 +78,7 @@ In order to remove a user from a feature:
 
 ```ruby
 Featurer.off(:feature, user_id)
+Featurer.off(:feature, [first_user_id, second_user_id])
 ```
 
 #### Global feature
@@ -90,12 +91,6 @@ Then request the enabled feature:
 
 ```ruby
 Featurer.on? :feature
-```
-
-In order to remove multiple users from a feature:
-
-```ruby
-Featurer.off(:feature, [first_user_id, second_user_id])
 ```
 
 #### Deleting features
