@@ -34,6 +34,22 @@ describe Featurer do
         expect(Featurer.on?(:feature)).to be
         expect(Featurer.on?(:feature, user_id)).to_not be
       end
+
+      it 'should remove a single user from the feature' do
+        Featurer.register :feature, [user_id, user_id + 1]
+        Featurer.off :feature, user_id
+
+        expect(Featurer.on?(:feature, user_id)).to_not be
+        expect(Featurer.on?(:feature, user_id + 1)).to be
+      end
+
+      it 'should remove a multiple users from the feature' do
+        Featurer.register :feature, [user_id, user_id + 1]
+
+        Featurer.off :feature, [user_id, user_id + 1]
+        expect(Featurer.on?(:feature, user_id)).to_not be
+        expect(Featurer.on?(:feature, user_id + 1)).to_not be
+      end
     end
 
     describe 'global' do

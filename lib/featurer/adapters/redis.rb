@@ -18,6 +18,10 @@ module Featurer
       fetch_from_set(feature, value)
     end
 
+    def off(feature, value)
+      remove_from_set(feature, value)
+    end
+
     def register(name, value = true)
       # ensure old data is wiped
       delete(name)
@@ -40,6 +44,10 @@ module Featurer
 
     def fetch_from_set(name, id)
       @redis.sismember(key(name), id)
+    end
+
+    def remove_from_set(name, id)
+      @redis.srem(key(name), id)
     end
   end
 end
