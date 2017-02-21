@@ -10,12 +10,12 @@ module Featurer
       })
     end
 
-    def delete(feature)
-      delete_key(feature)
-    end
-
     def add(feature, value)
       save_set(feature, value)
+    end
+
+    def delete(feature)
+      delete_key(feature)
     end
 
     def on?(feature, value = true)
@@ -26,10 +26,10 @@ module Featurer
       remove_from_set(feature, value)
     end
 
-    def register(name, value = true)
+    def register(feature, value = true)
       # ensure old data is wiped
-      delete(name)
-      save_set(name, value)
+      delete(feature)
+      save_set(feature, value)
     end
 
     private
