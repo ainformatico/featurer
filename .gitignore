@@ -11,4 +11,6 @@
 *.so
 *.o
 *.a
+.byebug_history
 mkmf.log
+vendor/bundle
