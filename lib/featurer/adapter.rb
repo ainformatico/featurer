@@ -21,13 +21,13 @@ module Featurer
     # =>                       - integer: matched when calling #on?, if an integer is passed
     # =>                       - regular expression: matched when calling #on?, if regular expression is passed
     def add(_feature, _matching_value)
-      raise 'implement an add method'
+      raise NotImplementedError
     end
 
     # Completely removes a feature from the system.
     # If the feature doesn't exist, the adapter should not fail.
     def delete(_feature)
-      raise 'implement a delete method'
+      raise NotImplementedError
     end
 
     # Returns true if the feature has a matching value attached wich matches the given value.
@@ -40,7 +40,7 @@ module Featurer
     # =>      true if _value is a string and the _feature has a matching_value which is a regexp that matches _value
     # =>      false in any other case
     def on?(_feature, _value = nil)
-      raise 'implement a on? method'
+      raise NotImplementedError
     end
 
     # First deletes the given _feature and then creates it again with only the provided _matching_value attached.
@@ -48,7 +48,7 @@ module Featurer
     # @param _feature the feature to register
     # @param _matching_value the new matching_value for the feature that replaces any existing matching_value on it
     def register(_feature, _matching_value = true)
-      raise 'implement a register? method'
+      raise NotImplementedError
     end
   end
 end

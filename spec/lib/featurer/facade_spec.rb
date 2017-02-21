@@ -49,4 +49,10 @@ describe Featurer::Facade do
       end
     end
   end
+
+  describe 'calling methods not defined in the adapter' do
+    it 'produces an error' do
+      expect { Featurer.this_is_clearly_not_a_valid_method_ok }.to raise_error(NoMethodError)
+    end
+  end
 end
