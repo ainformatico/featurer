@@ -16,7 +16,7 @@ describe Featurer::Facade do
           host: '192.168.1.1'
         }
       end
-      let!(:original_config) { Featurer.adapter.try(:config) }
+      let!(:original_config) { Featurer.adapter && Featurer.adapter.config }
 
       after do
         Featurer.configure(original_config) if original_config
