@@ -13,6 +13,24 @@ describe Featurer do
 
   let(:user_id) { 1 }
 
+  context 'globally enabled feature' do
+    before do
+      Featurer.register :feature, true
+    end
+
+    it 'matches on an integer' do
+      expect(Featurer.on?(:feature, 1)).to be
+    end
+
+    it 'matches on a boolean' do
+      expect(Featurer.on?(:feature, true)).to be
+    end
+
+    it 'matches on a string' do
+      expect(Featurer.on?(:feature, 'admin_client_123')).to be
+    end
+  end
+
   context 'feature matching_value is a list of integers' do
     it 'returns true because user is in the list' do
       Featurer.register :feature, [user_id]
@@ -33,12 +51,12 @@ describe Featurer do
       expect(Featurer.on?(:feature, user_id)).to_not be
     end
 
-    it 'converts a per user feature into a global one' do
+    it 'gives priority to global features' do
       Featurer.register :feature, [user_id]
       Featurer.register :feature, true
 
       expect(Featurer.on?(:feature)).to be
-      expect(Featurer.on?(:feature, user_id)).to_not be
+      expect(Featurer.on?(:feature, user_id + 1)).to be
     end
 
     it 'removes a single user from the feature' do

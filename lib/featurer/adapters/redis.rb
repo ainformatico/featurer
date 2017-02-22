@@ -45,13 +45,15 @@ module Featurer
       @redis.sadd key(name), value
     end
 
-    def fetch_from_set(name, id)
-      return @redis.sismember(key(name), id) unless id.is_a?(String)
+    def fetch_from_set(name, value)
+      matching_values = @redis.smembers(key(name))
 
-      @redis.sscan_each(key(name)) do |stored_value|
-        regexp = Regexp.new(stored_value)
-
-        return true if regexp.match(id)
+      matching_values.each do |matching_value|
+        if matching_value == 'true' || # Globally enabled feature
+           (value.is_a?(String) && Regexp.new(matching_value).match(value)) || # Regexp matching
+           matching_value.to_i == value # By user_id
+          return true
+        end
       end
 
       false
