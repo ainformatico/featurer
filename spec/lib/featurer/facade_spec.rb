@@ -2,19 +2,30 @@ require 'spec_helper'
 
 describe Featurer::Facade do
   describe 'configuration' do
-    it 'should use default options' do
+    it 'uses default options' do
       Featurer.init!
       expect(Featurer.adapter.config).to include(adapter: :redis)
     end
 
-    it 'should configure the adapter' do
-      options = {
-        adapter: :redis,
-        prefix: :custom,
-        host: '192.168.1.1'
-      }
-      Featurer.configure(options)
-      expect(Featurer.adapter.config).to include(options)
+    context 'when providing a configu' do
+      let(:new_config) do
+        {
+          adapter: :redis,
+          prefix: :custom,
+          host: '192.168.1.1'
+        }
+      end
+      let!(:original_config) { Featurer.adapter&.config }
+
+      after do
+        Featurer.configure(original_config) if original_config
+      end
+
+      it 'configures the adapter' do
+        Featurer.configure(new_config)
+
+        expect(Featurer.adapter.config).to include(new_config)
+      end
     end
   end
 
@@ -25,14 +36,14 @@ describe Featurer::Facade do
     end
 
     describe '#init' do
-      it 'should reset the adapter' do
+      it 'resets the adapter' do
         Featurer.configure(adapter: :nil)
         Featurer.init!
 
         expect(Featurer.config).to include(adapter: :redis)
       end
 
-      it 'should not reset the adapter' do
+      it "doesn't reset the adapter" do
         Featurer.configure(adapter: :nil, prefix: :custom)
         Featurer.init
 
@@ -41,7 +52,7 @@ describe Featurer::Facade do
     end
 
     describe '#reset' do
-      it 'should reset the adapter' do
+      it 'resets the adapter' do
         Featurer.configure(adapter: :nil)
         Featurer.reset
 

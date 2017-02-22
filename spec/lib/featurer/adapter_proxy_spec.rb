@@ -9,11 +9,11 @@ describe Featurer::AdapterProxy do
     end
 
     it 'creates a new adapter' do
-      class TestAdapter < Featurer::Adapter
+      class ProxyAdapter < Featurer::Adapter
       end
 
-      proxy = Featurer::AdapterProxy.new(adapter: :test)
-      expect(proxy.adapter).to be_an(TestAdapter)
+      proxy = Featurer::AdapterProxy.new(adapter: :proxy)
+      expect(proxy.adapter).to be_an(ProxyAdapter)
     end
   end
 end

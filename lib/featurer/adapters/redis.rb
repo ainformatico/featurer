@@ -47,7 +47,15 @@ module Featurer
     end
 
     def fetch_from_set(name, id)
-      @redis.sismember(key(name), id)
+      return @redis.sismember(key(name), id) unless id.is_a?(String)
+
+      @redis.sscan_each(key(name)) do |stored_value|
+        regexp = Regexp.new(stored_value)
+
+        return true if regexp.match(id)
+      end
+
+      false
     end
 
     def remove_from_set(name, id)
