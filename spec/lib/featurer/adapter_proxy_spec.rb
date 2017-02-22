@@ -1,7 +1,7 @@
+# frozen_string_literal: true
 require 'spec_helper'
 
 describe Featurer::AdapterProxy do
-
   describe 'default adapter' do
     it 'creates the default adapter' do
       proxy = Featurer::AdapterProxy.new

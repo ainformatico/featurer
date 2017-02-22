@@ -1,13 +1,12 @@
+# frozen_string_literal: true
 require 'redis'
 
 module Featurer
   class RedisAdapter < Adapter
     def prepare
-      @redis = ::Redis.new({
-        host: @config[:host],
-        port: @config[:port],
-        db: @config[:db]
-      })
+      @redis = ::Redis.new(host: @config[:host],
+                           port: @config[:port],
+                           db: @config[:db])
     end
 
     def add(feature, value)

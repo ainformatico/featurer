@@ -1,4 +1,5 @@
 # coding: utf-8
+# frozen_string_literal: true
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'featurer/version'
@@ -8,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.version       = Featurer::VERSION
   spec.authors       = ['Alejandro El Informatico']
   spec.email         = ['aeinformatico@gmail.com']
-  spec.summary       = %q{Easy feature flag for your project}
-  spec.description   = %q{Easy feature flag for your project shipped with Redis support}
+  spec.summary       = 'Easy feature flag for your project'
+  spec.description   = 'Easy feature flag for your project shipped with Redis support'
   spec.homepage      = 'https://github.com/ainformatico/featurer'
   spec.license       = 'MIT'
 

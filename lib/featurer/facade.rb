@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Featurer
   module Facade
     attr_accessor :adapter

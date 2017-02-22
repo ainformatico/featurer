@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'featurer'
 
 # Requires supporting ruby files with custom matchers and macros, etc,

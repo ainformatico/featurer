@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'featurer/adapter_proxy'
 require 'featurer/adapter_manager'
 require 'featurer/adapter'

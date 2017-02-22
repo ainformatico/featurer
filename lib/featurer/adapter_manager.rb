@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Featurer
   class AdapterManager
     class << self
@@ -20,9 +21,9 @@ module Featurer
 
       def extract_name(klass)
         klass.name
-          .downcase[/(?:\w+$)/] # get only class name
-          .sub('adapter', '') # remove adapter prefix
-          .to_sym
+             .downcase[/(?:\w+$)/] # get only class name
+             .sub('adapter', '') # remove adapter prefix
+             .to_sym
       end
     end
   end
