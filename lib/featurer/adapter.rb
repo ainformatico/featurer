@@ -40,7 +40,15 @@ module Featurer
     # =>      true if _value is an integer and the _feature has that exact integer attached as a matching_value
     # =>      true if _value is a string and the _feature has a matching_value which is a regexp that matches _value
     # =>      false in any other case
-    def on?(_feature, _value = nil)
+    def on?(_feature, _value = true)
+      raise NotImplementedError
+    end
+
+    # Returns an array with all the enabled features that match the given value (or just the global ones if no value is
+    # provided)
+    #
+    # @param _value the value that will be used when matching against the stored matching_values
+    def enabled_features(_value = true)
       raise NotImplementedError
     end
 

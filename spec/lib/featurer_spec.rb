@@ -13,6 +13,30 @@ describe Featurer do
 
   let(:user_id) { 1 }
 
+  describe '#enabled_features' do
+    around do |example|
+      begin
+        Featurer.register(:feature_1)
+        Featurer.register(:feature_2, [user_id])
+        Featurer.register(:feature_3, [user_id + 1, /client_123/])
+        Featurer.register(:feature_4, /^admin_/)
+
+        example.run
+      ensure
+        Featurer.delete(:feature_1)
+        Featurer.delete(:feature_2)
+        Featurer.delete(:feature_3)
+        Featurer.delete(:feature_4)
+      end
+    end
+
+    it 'returns all enabled features' do
+      expect(Featurer.enabled_features.to_set).to eq([:feature_1].to_set)
+      expect(Featurer.enabled_features(user_id).to_set).to eq([:feature_1, :feature_2].to_set)
+      expect(Featurer.enabled_features('admin_client_123').to_set).to eq([:feature_1, :feature_3, :feature_4].to_set)
+    end
+  end
+
   context 'globally enabled feature' do
     before do
       Featurer.register :feature, true

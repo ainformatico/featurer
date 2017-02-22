@@ -21,6 +21,10 @@ module Featurer
       fetch_from_set(feature, value)
     end
 
+    def enabled_features(value = true)
+      all_features.select { |feature| on?(feature, value) }
+    end
+
     def off(feature, value)
       remove_from_set(feature, value)
     end
@@ -32,6 +36,12 @@ module Featurer
     end
 
     private
+
+    def all_features
+      @redis.keys("#{@config[:prefix]}:feature:*").map do |key|
+        key.split("#{@config[:prefix]}:feature:").last.to_sym
+      end
+    end
 
     def key(name)
       "#{@config[:prefix]}:feature:#{name}"
@@ -49,9 +59,11 @@ module Featurer
       matching_values = @redis.smembers(key(name))
 
       matching_values.each do |matching_value|
-        if matching_value == 'true' || # Globally enabled feature
-           (value.is_a?(String) && Regexp.new(matching_value).match(value)) || # Regexp matching
-           matching_value.to_i == value # By user_id
+        return true if matching_value == 'true' # Globally enabled feature
+
+        if value.is_a?(String) && matching_value =~ /\(\?.+\)/ # Regexp matching
+          return true if Regexp.new(matching_value).match(value)
+        elsif matching_value.to_i == value # By user_id
           return true
         end
       end
