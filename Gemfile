@@ -6,8 +6,6 @@ gemspec
 
 group :development do
   gem 'rubocop', '~> 0.47.1'
-  gem 'guard', '~> 2.14.1'
-  gem 'guard-rspec', '~> 4.7.3'
 end
 
 group :debug do
