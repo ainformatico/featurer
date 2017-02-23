@@ -8,4 +8,12 @@ require 'featurer/version'
 
 module Featurer
   extend Facade
+
+  if const_defined?(:Rails)
+    class Engine < ::Rails::Engine
+      initializer 'featurer:init_adapter' do
+        Featurer.init!
+      end
+    end
+  end
 end

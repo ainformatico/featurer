@@ -1,0 +1,8 @@
+<script>
+  var Featurer = {
+    enabledFeatures: <%= Featurer.enabled_features(value).to_json.html_safe %>,
+    isEnabled: function(feature_name) {
+      return this.enabledFeatures.indexOf(feature_name) != -1
+    }
+  };
+</script>
