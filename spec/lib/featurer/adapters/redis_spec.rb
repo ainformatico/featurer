@@ -29,6 +29,24 @@ describe Featurer::RedisAdapter do
     end
   end
 
+  describe '#enabled_features' do
+    context 'when there is an exception' do
+      let(:exception) { StandardError.new }
+      let(:logger) { double(Logger) }
+
+      before do
+        subject.instance_variable_set :@config, logger: logger
+
+        expect(logger).to receive(:warn)
+        expect(subject).to receive(:all_features).and_raise(exception)
+      end
+
+      it "doesn't propagate the exception, just logs it" do
+        expect(subject.enabled_features(:feature)).to be(false)
+      end
+    end
+  end
+
   describe '#prepare' do
     subject { described_class.new(config).prepare }
 

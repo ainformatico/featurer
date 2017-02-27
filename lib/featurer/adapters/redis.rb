@@ -26,6 +26,9 @@ module Featurer
 
     def enabled_features(value = true)
       all_features.select { |feature| on?(feature, value) }
+    rescue => e
+      @config[:logger].warn e
+      false
     end
 
     def off(feature, value)
