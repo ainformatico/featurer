@@ -61,9 +61,9 @@ module Featurer
       matching_values.each do |matching_value|
         return true if matching_value == 'true' # Globally enabled feature
 
-        if value.is_a?(String) && matching_value =~ /\(\?.+\)/ # Regexp matching
+        if value.is_a?(String) && matching_value =~ /\(\?-mix:.+\)/ # Regexp matching
           return true if Regexp.new(matching_value).match(value)
-        elsif matching_value.to_i == value # By user_id
+        elsif matching_value == value.to_s # By exact value
           return true
         end
       end

@@ -8,7 +8,7 @@ describe Featurer::Facade do
       expect(Featurer.adapter.config).to include(adapter: :redis)
     end
 
-    context 'when providing a configu' do
+    context 'when providing a configuration' do
       let(:new_config) do
         {
           adapter: :redis,
@@ -16,11 +16,8 @@ describe Featurer::Facade do
           host: '192.168.1.1'
         }
       end
-      let!(:original_config) { Featurer.adapter && Featurer.adapter.config }
 
-      after do
-        Featurer.configure(original_config) if original_config
-      end
+      after { Featurer.reset }
 
       it 'configures the adapter' do
         Featurer.configure(new_config)

@@ -167,4 +167,24 @@ describe Featurer do
       expect(Featurer.on?(:feature)).to_not be
     end
   end
+
+  context 'feature matching_value is a String' do
+    let(:value) { "this is the value" }
+
+    before do
+      Featurer.register :feature, value
+    end
+
+    it 'matches on the exact value of the string' do
+      expect(Featurer.on?(:feature, value)).to be
+    end
+
+    it "doesn't match partially" do
+      expect(Featurer.on?(:feature, value[0..-3])).to_not be
+    end
+
+    it "doesn't match on an empty string" do
+      expect(Featurer.on?(:feature, "")).to_not be
+    end
+  end
 end
