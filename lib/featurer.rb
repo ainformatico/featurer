@@ -12,7 +12,7 @@ module Featurer
   if const_defined?(:Rails)
     class Engine < ::Rails::Engine
       initializer 'featurer:init_adapter' do
-        Featurer.init!
+        Featurer.init! unless Featurer.adapter
       end
     end
   end
