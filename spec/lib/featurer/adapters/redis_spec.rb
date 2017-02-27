@@ -11,6 +11,24 @@ describe Featurer::RedisAdapter do
     expect(redis_handler.ping).to eq('PONG')
   end
 
+  describe '#on?' do
+    context 'when there is an exception' do
+      let(:exception) { StandardError.new }
+      let(:logger) { double(Logger) }
+
+      before do
+        subject.instance_variable_set :@config, logger: logger
+
+        expect(logger).to receive(:warn)
+        expect(subject).to receive(:fetch_from_set).and_raise(exception)
+      end
+
+      it "doesn't propagate the exception, just logs it" do
+        expect(subject.on?(:feature)).to be(false)
+      end
+    end
+  end
+
   describe '#prepare' do
     subject { described_class.new(config).prepare }
 

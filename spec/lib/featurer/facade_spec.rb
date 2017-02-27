@@ -68,7 +68,7 @@ describe Featurer::Facade do
         Featurer.configure(adapter: :nil, prefix: :custom)
         Featurer.init
 
-        expect(Featurer.config).to eq(adapter: :nil, prefix: :custom)
+        expect(Featurer.config).to include(adapter: :nil, prefix: :custom)
       end
     end
 

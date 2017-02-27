@@ -19,6 +19,9 @@ module Featurer
 
     def on?(feature, value = true)
       fetch_from_set(feature, value)
+    rescue => e
+      @config[:logger].warn e
+      false
     end
 
     def enabled_features(value = true)

@@ -6,8 +6,8 @@ module Featurer
     attr_accessor :adapter, :logger
 
     def configure(config)
+      @logger = config[:logger] ||= Logger.new(STDOUT)
       @adapter = AdapterProxy.new(config).adapter
-      @logger = config[:logger] || Logger.new(STDOUT)
     end
 
     def reset
