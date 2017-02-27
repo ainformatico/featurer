@@ -10,4 +10,33 @@ describe Featurer::RedisAdapter do
     expect(redis_handler).to be_an(Redis)
     expect(redis_handler.ping).to eq('PONG')
   end
+
+  describe '#prepare' do
+    subject { described_class.new(config).prepare }
+
+    context 'a preconfigured client is provided' do
+      let(:client) { double(Redis) }
+      let(:config) { { client: client } }
+
+      it 'sets the given client as the adapter client' do
+        expect(subject).to eq(client)
+      end
+    end
+
+    context 'the connection details are provided' do
+      let(:config) do
+        {
+          host: 'the_host',
+          port: 3425,
+          db: 89
+        }
+      end
+
+      it 'creates a new redis client with the given settings' do
+        expect(subject.client.host).to eq(config[:host])
+        expect(subject.client.port).to eq(config[:port])
+        expect(subject.client.db).to eq(config[:db])
+      end
+    end
+  end
 end
