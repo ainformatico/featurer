@@ -24,6 +24,30 @@ describe Featurer::Facade do
         expect(Featurer.adapter.config).to include(new_config)
       end
     end
+
+    describe 'supports passing a custom logger in the config' do
+      let(:logger) { double(Logger) }
+
+      context 'no logger is passed in the config' do
+        before do
+          expect(Logger).to receive(:new).with(STDOUT).and_return(logger)
+        end
+
+        it 'sets a default logger' do
+          Featurer.configure({})
+
+          expect(Featurer.logger).to eq(logger)
+        end
+      end
+
+      context 'a logger is passed in the config' do
+        it 'sets a default logger' do
+          Featurer.configure(logger: logger)
+
+          expect(Featurer.logger).to eq(logger)
+        end
+      end
+    end
   end
 
   describe 'reset configuration' do
