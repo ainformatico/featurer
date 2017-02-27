@@ -8,6 +8,10 @@ group :development do
   gem 'rubocop', '~> 0.47.1'
 end
 
+group :test do
+  gem 'fakeredis', '~> 0.5.0'
+end
+
 group :debug do
   gem 'pry', '~> 0.10.4'
   gem 'pry-byebug', '~> 3.4.2'

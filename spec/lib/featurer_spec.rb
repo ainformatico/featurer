@@ -2,32 +2,16 @@
 require 'spec_helper'
 
 describe Featurer do
-  around do |example|
-    begin
-      Featurer.init!
-      example.run
-    ensure
-      Featurer.delete(:feature)
-    end
-  end
+  before { Featurer.init! }
 
   let(:user_id) { 1 }
 
   describe '#enabled_features' do
-    around do |example|
-      begin
-        Featurer.register(:feature_1)
-        Featurer.register(:feature_2, [user_id])
-        Featurer.register(:feature_3, [user_id + 1, /client_123/])
-        Featurer.register(:feature_4, /^admin_/)
-
-        example.run
-      ensure
-        Featurer.delete(:feature_1)
-        Featurer.delete(:feature_2)
-        Featurer.delete(:feature_3)
-        Featurer.delete(:feature_4)
-      end
+    before do
+      Featurer.register(:feature_1)
+      Featurer.register(:feature_2, [user_id])
+      Featurer.register(:feature_3, [user_id + 1, /client_123/])
+      Featurer.register(:feature_4, /^admin_/)
     end
 
     it 'returns all enabled features' do

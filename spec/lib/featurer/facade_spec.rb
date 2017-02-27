@@ -5,6 +5,7 @@ describe Featurer::Facade do
   describe 'configuration' do
     it 'uses default options' do
       Featurer.init!
+
       expect(Featurer.adapter.config).to include(adapter: :redis)
     end
 
@@ -16,8 +17,6 @@ describe Featurer::Facade do
           host: '192.168.1.1'
         }
       end
-
-      after { Featurer.reset }
 
       it 'configures the adapter' do
         Featurer.configure(new_config)
