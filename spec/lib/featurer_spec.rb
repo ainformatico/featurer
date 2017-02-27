@@ -169,7 +169,7 @@ describe Featurer do
   end
 
   context 'feature matching_value is a String' do
-    let(:value) { "this is the value" }
+    let(:value) { 'this is the value' }
 
     before do
       Featurer.register :feature, value
@@ -184,7 +184,7 @@ describe Featurer do
     end
 
     it "doesn't match on an empty string" do
-      expect(Featurer.on?(:feature, "")).to_not be
+      expect(Featurer.on?(:feature, '')).to_not be
     end
   end
 end
