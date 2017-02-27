@@ -42,7 +42,7 @@ describe Featurer::RedisAdapter do
       end
 
       it "doesn't propagate the exception, just logs it" do
-        expect(subject.enabled_features(:feature)).to be(false)
+        expect(subject.enabled_features(:feature)).to eq([])
       end
     end
   end
