@@ -41,13 +41,16 @@ module Featurer
       save_set(feature, value)
     end
 
-    private
-
-    def all_features
-      @redis.keys("#{@config[:prefix]}:feature:*").map do |key|
-        key.split("#{@config[:prefix]}:feature:").last.to_sym
+    def feature_list
+      full_feature_names.map do |full_feature_name|
+        {
+          name: short_feature_name(full_feature_name),
+          matching_values: @redis.smembers(full_feature_name)
+        }
       end
     end
+
+    private
 
     def key(name)
       "#{@config[:prefix]}:feature:#{name}"
@@ -79,6 +82,20 @@ module Featurer
 
     def remove_from_set(name, id)
       @redis.srem(key(name), id)
+    end
+
+    def all_features
+      full_feature_names.map do |key|
+        short_feature_name(key)
+      end
+    end
+
+    def full_feature_names
+      @redis.keys("#{@config[:prefix]}:feature:*")
+    end
+
+    def short_feature_name(full_feature_name)
+      full_feature_name.split("#{@config[:prefix]}:feature:").last.to_sym
     end
   end
 end
