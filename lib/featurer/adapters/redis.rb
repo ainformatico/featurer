@@ -36,7 +36,8 @@ module Featurer
     end
 
     def register(feature, value = true)
-      # ensure old data is wiped
+      return if feature.nil? || feature.empty?
+
       delete(feature)
       save_set(feature, value)
     end
