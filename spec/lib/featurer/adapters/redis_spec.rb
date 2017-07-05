@@ -75,4 +75,38 @@ describe Featurer::RedisAdapter do
       end
     end
   end
+
+  describe '#register' do
+    shared_examples 'rejected feature' do
+      it "doesn't register the feature" do
+        expect(subject).not_to receive(:delete)
+        expect(subject).not_to receive(:save_set)
+
+        subject.register(feature)
+      end
+    end
+
+    context 'feature name is not empty' do
+      let(:feature) { 'awesome_feature' }
+
+      it 'registers the feature' do
+        expect(subject).to receive(:delete).with(feature)
+        expect(subject).to receive(:save_set).with(feature, true)
+
+        subject.register(feature)
+      end
+    end
+
+    context 'feature name is empty' do
+      let(:feature) { '' }
+
+      it_behaves_like 'rejected feature'
+    end
+
+    context 'feature name is nil' do
+      let(:feature) { nil }
+
+      it_behaves_like 'rejected feature'
+    end
+  end
 end
