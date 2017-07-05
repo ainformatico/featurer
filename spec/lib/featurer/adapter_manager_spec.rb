@@ -1,7 +1,7 @@
+# frozen_string_literal: true
 require 'spec_helper'
 
 describe Featurer::AdapterManager do
-
   describe 'registered adapters' do
     it 'checks the default adapter' do
       expect(Featurer::AdapterManager.adapters).to include(redis: Featurer::RedisAdapter)

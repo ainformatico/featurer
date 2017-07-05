@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Featurer
   class AdapterProxy
     attr_reader :adapter
