@@ -10,6 +10,7 @@ end
 
 group :test do
   gem 'fakeredis', '~> 0.5.0'
+  gem 'redis', '~> 3.1'
 end
 
 group :debug do
